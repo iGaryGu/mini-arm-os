@@ -2,7 +2,8 @@
 #include <stdint.h>
 #include "reg.h"
 #include "asm.h"
-
+#include "host.h"
+#include <string.h>
 /* Size of our user task stacks in words */
 #define STACK_SIZE	256
 
@@ -111,6 +112,12 @@ int main(void)
 	size_t current_task;
 
 	usart_init();
+	
+	//create a log file
+	char command[20];
+	char *out = "touch log";
+	memcpy(command,out,strlen(out));
+	host_action(SYS_SYSTEM,command);
 
 	print_str("OS: Starting...\n");
 	print_str("OS: First create task 1\n");
